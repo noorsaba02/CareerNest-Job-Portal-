@@ -1,0 +1,25 @@
+# React / Node
+node_modules/
+dist/
+
+# Java / Maven
+target/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Private configuration
+application-secret.properties
+
+# IDE files
+.classpath
+.project
+.settings/
+.idea/
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
