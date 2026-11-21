@@ -1,73 +1,187 @@
-# Job Portal — Fresher Full-Stack Project
+# 💼 CareerNest - Job Portal Web Application
 
-A simple Job Portal MVP using React + Spring Boot + Spring Data JPA + MySQL.
-This is an interview-learning project, not a production-ready system.
+![Status](https://img.shields.io/badge/Status-In%20Progress%20(~75%25)-orange)
+![React](https://img.shields.io/badge/Frontend-React.js-61DAFB)
+![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot%203.3.5-6DB33F)
+![MySQL](https://img.shields.io/badge/Database-MySQL-4479A1)
 
-## Features
-- List jobs and search by title/location
-- Add a job (recruiter demo)
-- Apply to a job
-- View applications for a job
-- React UI calls Spring Boot REST APIs
+---
 
-## Requirements
-- Java 17+
-- Maven 3.8+
-- Node.js 18+
-- MySQL 8+
+## 📌 Project Overview
 
-## 1) Create the database
-In MySQL:
-```sql
-CREATE DATABASE job_portal;
+**Project Name:** CareerNest - Job Portal
+
+**Description:** CareerNest is a full-stack web application where job seekers can search for jobs and employers can post job listings. The React frontend talks to a Spring Boot REST API, which stores data in MySQL using Spring Data JPA and Hibernate.
+
+**Goal:** To build a clean, layered full-stack application while learning Spring Boot, REST APIs and React integration.
+
+> 🚧 **Status:** In progress (~75% complete). I am still learning and adding features.
+
+---
+
+## ✨ Features
+
+### ✅ Completed
+1. Search jobs by **keyword**
+2. Search jobs by **location**
+3. Employers can **post job listings**
+4. React forms connected to backend APIs
+5. Input validation (`@NotBlank`, `@Email`)
+6. Centralized exception handling (`@ControllerAdvice`)
+7. CORS configured for React and Spring Boot communication
+
+### 🔄 In Progress / Planned
+1. [Your next feature, e.g. authentication / login]
+2. [e.g. apply for a job flow]
+3. [e.g. update and delete job APIs]
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| **Frontend** | React.js, JavaScript, HTML5, CSS3 |
+| **Backend** | Java, Spring Boot 3.3.5, Spring Web, Maven |
+| **Database** | MySQL, Spring Data JPA, Hibernate |
+| **Tools** | Git, GitHub, Postman, VS Code, Eclipse |
+
+---
+
+## 🏗️ Backend Architecture
+
+The backend follows a **layered architecture**:
+
+```
+Controller  ->  Service  ->  Repository  ->  MySQL
+(requests)     (logic)      (data access)    (database)
 ```
 
-## 2) Run backend
-Edit `backend/src/main/resources/application.properties` with your MySQL username/password.
-Then:
+- **Controller layer:** handles HTTP requests and responses (`@RestController`, `@GetMapping`, `@PostMapping`)
+- **Service layer:** business logic (`@Service`)
+- **Repository layer:** database access using `JpaRepository`, derived queries and JPQL `@Query`
+- **Model / Entity layer:** maps Java classes to tables (`@Entity`, `@Id`, `@ManyToOne`)
+
+---
+
+## 📁 Project Structure
+
+```
+CareerNest/
+├── backend/
+│   ├── src/main/java/.../
+│   │   ├── controller/
+│   │   ├── service/
+│   │   ├── repository/
+│   │   ├── model/
+│   │   └── exception/
+│   ├── src/main/resources/
+│   │   └── application.properties.example
+│   └── pom.xml
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+├── screenshots/
+├── .gitignore
+└── README.md
+```
+
+> Edit the folder names above to match your actual project.
+
+---
+
+## 🔄 How It Works (Request Flow)
+
+1. The user enters a keyword (e.g. "Java") in the React search box.
+2. React sends a `GET` request to the Spring Boot API.
+3. The **Controller** receives it and passes it to the **Service**.
+4. The **Service** calls the **Repository**.
+5. **Hibernate** converts the query to SQL and runs it on **MySQL**.
+6. Results return as JSON and React displays the job list.
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/jobs` | Get all jobs |
+| GET | `/api/jobs/search?keyword=Java` | Search jobs by keyword |
+| GET | `/api/jobs/search?location=Bangalore` | Search jobs by location |
+| POST | `/api/jobs` | Post a new job |
+
+> Replace these with your real endpoints.
+
+---
+
+## 🚀 How to Run
+
+### Prerequisites
+- Java 17+
+- Node.js and npm
+- MySQL
+- Maven
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/noorsaba02/CareerNest.git
+cd CareerNest
+```
+
+### 2. Set up the database
+1. Open MySQL and create a database:
+   ```sql
+   CREATE DATABASE careernest;
+   ```
+2. In `backend/src/main/resources/`, copy `application.properties.example` to `application.properties` and add your own MySQL username and password.
+
+### 3. Run the backend
 ```bash
 cd backend
 mvn spring-boot:run
 ```
-Backend: http://localhost:8080
+The API runs on `http://localhost:8080`.
 
-## 3) Run frontend
-In a second terminal:
+### 4. Run the frontend
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
 ```
-Frontend: http://localhost:5173
+The app runs on `http://localhost:3000`.
 
-## API endpoints
-- `GET /api/jobs` — list jobs (optional query: `?keyword=java&location=india`)
-- `GET /api/jobs/{id}` — job details
-- `POST /api/jobs` — create job
-- `POST /api/jobs/{id}/applications` — apply to job
-- `GET /api/jobs/{id}/applications` — list applicants for job
+---
 
-Example create-job JSON:
-```json
-{
-  "title": "Junior Java Developer",
-  "company": "ABC Technologies",
-  "location": "Bengaluru",
-  "description": "Fresher role; Java and SQL basics."
-}
-```
+## 📸 Screenshots
 
-Example application JSON:
-```json
-{
-  "applicantName": "Your Name",
-  "email": "you@example.com",
-  "resumeUrl": "https://example.com/resume.pdf"
-}
-```
+### Home Page
+<img width="1197" height="640" alt="Screenshot 2026-11-21 004418" src="https://github.com/user-attachments/assets/7559db19-e9cd-4fd0-a24b-bba398738f00" />
 
-## Interview explanation (short)
-"The Job Portal is a full-stack web application. React provides the user interface and sends HTTP requests to Spring Boot REST APIs. The controller receives requests, the service layer contains business logic, and the repository uses Spring Data JPA/Hibernate to store and retrieve job and application data from MySQL."
 
-## Project limitations / next steps
-This starter version has no real login, role authorization, resume upload, or production security. Explain that honestly in an interview. Those can be added after the core CRUD flow is understood.
+### Job Search
+<img width="1073" height="357" alt="Screenshot 2026-11-21 004437" src="https://github.com/user-attachments/assets/b8b2eb26-8df6-483e-8f61-a547abcf0e69" />
+
+<img width="360" height="615" alt="Screenshot 2026-11-21 004558" src="https://github.com/user-attachments/assets/59f894fa-f05d-4d34-888c-422c20a400ac" />
+
+### logging details
+<img width="960" height="531" alt="Screenshot 2026-11-21 004637" src="https://github.com/user-attachments/assets/03190787-d93d-410c-98d0-da2ab84aef08" />
+
+
+---
+
+## 📚 What I Learned
+- Building REST APIs with Spring Boot
+- Dependency Injection and Inversion of Control
+- Layered architecture (Controller, Service, Repository)
+- Database mapping with JPA and Hibernate
+- Connecting a React frontend to a Spring Boot backend (CORS, API integration)
+
+---
+
+## 👩‍💻 Author
+
+**Noor Saba**
+Java Full Stack Developer | Bangalore, India
+
+[LinkedIn](https://linkedin.com/in/noor-saba-2a2599313) • [GitHub](https://github.com/noorsaba02) • noorsaba02003@gmail.com
